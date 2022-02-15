@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 .terraform*
 terraform.tfstate
+*.tfstate.backup
 
 # C extensions
 *.so
