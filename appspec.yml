@@ -58,7 +58,7 @@ file_exists_behavior: OVERWRITE
 # #   may cause associated deployments to fail.
 hooks:
   AfterInstall:
-    - location: ./after-install.sh  && echo yo && pwd
+    - location: pwd # ~/after-install.sh  && echo yo && pwd
       timeout: 300
       runas: ec2-user
 
