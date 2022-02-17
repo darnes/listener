@@ -23,7 +23,7 @@ os: linux
 #   "files" section altogether. A blank or incomplete "files" section
 #   may cause associated deployments to fail.
 files:
-  - source: artifact.tar.gz # should copy all files
+  - source: * # artifact.tar.gz # should copy all files
     destination: /home/ec2-user/
 file_exists_behavior: OVERWRITE
   # - source:
@@ -89,13 +89,10 @@ file_exists_behavior: OVERWRITE
 #       runas: 
 # # During the BeforeInstall deployment lifecycle event, run the commands 
 # #   in the script specified in "location".
-#   BeforeInstall:
-#     - location: 
-#       timeout:
-#       runas: 
-#     - location: 
-#       timeout:
-#       runas:
+  BeforeInstall:
+    - location: unpack.sh
+      timeout:
+      runas: ec2-user
 # # During the AfterInstall deployment lifecycle event, run the commands 
 # #   in the script specified in "location".
 #   AfterInstall:
