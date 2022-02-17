@@ -57,14 +57,14 @@ file_exists_behavior: OVERWRITE
 # #   the "hooks" section altogether. A blank or incomplete "hooks" section
 # #   may cause associated deployments to fail.
 hooks:
-  BeforeInstall: # executed before copying in files section(aka cleanup or whatever)
-    - location: after-install.sh
-      timeout: 300
-      runas: ec2-user
+  # BeforeInstall: # executed before copying in files section(aka cleanup or whatever)
+  #   - location: after-install.sh
+  #     timeout: 300
+  #     runas: ec2-user
   AfterInstall:
     - location: after-install.sh
       timeout: 300
-      runas: ec2-user
+      runas: root
 
 # # For each deployment lifecycle event, specify multiple "location" entries 
 # #   if you want to run multiple scripts during that event.
