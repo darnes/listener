@@ -64,7 +64,7 @@ hooks:
   AfterInstall:
     - location: after-install.sh
       timeout: 300
-      runas: root
+      runas: ec2-user
 
 # # For each deployment lifecycle event, specify multiple "location" entries 
 # #   if you want to run multiple scripts during that event.
