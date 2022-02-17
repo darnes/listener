@@ -58,7 +58,7 @@ file_exists_behavior: OVERWRITE
 # #   may cause associated deployments to fail.
 hooks:
   AfterInstall:
-    - location: after-install.sh
+    - location: ./after-install.sh
       timeout:
       runas: ec2-user
 
