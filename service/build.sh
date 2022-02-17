@@ -6,4 +6,4 @@ pwd
 tar -zcvf ./build/artifact.tar.gz src/
 # cp -r ./src/* ./build
 cp ./appspec.yml ./build/appspec.yml
-cp ./service/deploy.sh ./build/deploy.sh
+cp ./service/hooks/* ./build/
