@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p listener-app
+mkdir -p /home/ec2-user/listener-app
 pwd
-tar -xzvf artifact.tar.gz -C listener-app
+tar -xzvf /home/ec2-user/artifact.tar.gz -C /home/ec2-user/listener-app
 echo "unpack complete"
