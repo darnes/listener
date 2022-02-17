@@ -89,10 +89,10 @@ file_exists_behavior: OVERWRITE
 #       runas: 
 # # During the BeforeInstall deployment lifecycle event, run the commands 
 # #   in the script specified in "location".
-  BeforeInstall:
-    - location: before-install.sh
-      timeout:
-      runas: ec2-user
+  # BeforeInstall:
+  #   - location: before-install.sh
+  #     timeout:
+  #     runas: ec2-user
 # # During the AfterInstall deployment lifecycle event, run the commands 
 # #   in the script specified in "location".
 #   AfterInstall:
