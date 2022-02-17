@@ -25,6 +25,9 @@ resource "aws_instance" "app_server" {
     Name = "ListenerInstance"
   }
   key_name = "MasterKey"
+  # tbd: attach role https://stackoverflow.com/questions/41997426/instanceagentpluginscodedeployplugincommandpoller-missing-credentials
+  # so CodeDeployAgent can connect
+  # + attach CodeDeploy policies.... 
 }
 
 resource "aws_security_group" "listener-sg" {
