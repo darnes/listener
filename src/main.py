@@ -4,7 +4,7 @@ import logging
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(levelname)s\t:%(name)s:[%(asctime)s]:%(message)s')
 log = logging.getLogger(__name__)
-
+#todo: consider adding DT to traceback
 
 def main():
     log.info('starting')

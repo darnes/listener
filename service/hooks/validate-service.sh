@@ -1,0 +1,1 @@
+sudo supervisorctl status listener | grep RUNNING

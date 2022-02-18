@@ -65,7 +65,16 @@ hooks:
     - location: after-install.sh
       timeout: 300
       runas: ec2-user
+  ApplicationStart:
+    - location: application-start.sh
+      timeout: 300
+      runas: ec2-user
+  ValidateService:
+    - location: validate-service.sh
+      timeout: 300
+      runas: ec2-user
 
+# todo: continue, here on slack time - need to check that app started ie $ sudo supervisorctl status | grep 
 # # For each deployment lifecycle event, specify multiple "location" entries 
 # #   if you want to run multiple scripts during that event.
 # # You can specify "timeout" as the number of seconds to wait until failing the deployment 
