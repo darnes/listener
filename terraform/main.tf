@@ -19,7 +19,7 @@ resource "aws_instance" "app_server" {
   instance_type = "t2.medium"
   vpc_security_group_ids = [aws_security_group.listener-sg.id]
 
-  user_data = file("codedeploy_agent_install.sh")
+  user_data = file("agent_install_deps.sh")
   
   tags = {
     Name = "ListenerInstance"
@@ -28,6 +28,10 @@ resource "aws_instance" "app_server" {
   # tbd: attach role https://stackoverflow.com/questions/41997426/instanceagentpluginscodedeployplugincommandpoller-missing-credentials
   # so CodeDeployAgent can connect
   # + attach CodeDeploy policies.... 
+  iam_instance_profile = "ListenerAgentRole"
+  security_groups = [
+    "listener-sg"
+  ]
 }
 
 resource "aws_security_group" "listener-sg" {
