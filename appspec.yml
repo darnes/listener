@@ -66,6 +66,10 @@ hooks:
       timeout: 300
       runas: ec2-user
 
+    - location: after-install-root.sh
+      timeout: 300
+      runas: root
+
 # # For each deployment lifecycle event, specify multiple "location" entries 
 # #   if you want to run multiple scripts during that event.
 # # You can specify "timeout" as the number of seconds to wait until failing the deployment 
