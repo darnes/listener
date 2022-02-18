@@ -1,1 +1,1 @@
-sudo supervisorctl status listener | grep RUNNING
+sudo supervisorctl status listener | grep PUNNING
