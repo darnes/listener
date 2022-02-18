@@ -1,5 +1,6 @@
 #!/bin/bash
-# sudo apt-get update -y
+
+sudo yum update -y
 
 # code deploy agent
 sudo yum install ruby -y

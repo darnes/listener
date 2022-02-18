@@ -11,9 +11,9 @@ def main():
     while True:
         time.sleep(1.0)
         log.info('info beep')
-        log.debug('debug peep')
-        log.warn('warn peep')
-        log.error('error peep')
+        log.debug('debug beep')
+        log.warning('warning beep')
+        log.error('error beep')
 
 if __name__ == '__main__':
     main()
