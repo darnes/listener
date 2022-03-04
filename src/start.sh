@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd "$(dirname "$0")"
-python3 main.py
+/home/ec2-user/venv/bin/python main.py
