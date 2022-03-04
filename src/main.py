@@ -4,7 +4,7 @@ import logging
 
 import v20
 from v20.errors import V20ConnectionError, V20Timeout
-from lib.data_reporter import DataReporter, Symbol
+from util.data_reporter import DataReporter, Symbol
 
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(levelname)s\t:%(name)s:[%(asctime)s]:%(message)s')
