@@ -1,11 +1,13 @@
 import logging
 import os
 from v20.pricing import  ClientPrice
-from influxdb import InfluxDBClient
+from influxdb_client import InfluxDBClient
+from influxdb_client.client.write_api import SYNCHRONOUS
 from influxdb.resultset import ResultSet
 from  datetime import datetime, timedelta
 from enum import Enum
 from typing import Generator
+from .config import config
 
 log = logging.getLogger(__name__)
 INFLUX_HOST = os.environ.get('INFLUX_HOST', 'localhost')
@@ -28,14 +30,20 @@ class Symbol(Enum):
             map(lambda x: x.value, cls)
             )
 
-
 class DataConnection(object):
-    def __init__(self):
-        self._client = InfluxDBClient(INFLUX_HOST, 8086, '', '', 'tsdata')
+    def __init__(self, url, token, org):
+        self._client = InfluxDBClient(
+            url=url, token=token, org=org
+        )
         log.info('connected')
 
 
 class DataReporter(DataConnection):
+    def __init__(self, url, token, org):
+        super().__init__(url, token, org)
+        self._write_api = self._client.write_api(write_options=SYNCHRONOUS)
+        # self._client.api_client.
+
     def report(self, price: ClientPrice):
         json_body = [
             {
@@ -50,8 +58,16 @@ class DataReporter(DataConnection):
                 }
             }
         ]
-        self._client.write_points(json_body)
+        self._write_api.write(bucket='tsdata', record=json_body)
+        # self._write_api.flush()
         log.info('data sent')
+
+def get_data_reporter():
+    return DataReporter(
+        config.influx_url,
+        config.influx_token,
+        config.influx_org
+    )
 
 class PricePoint(object):
     def __init__(self, time: datetime, bid: float, ask: float) -> None:

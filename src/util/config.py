@@ -32,6 +32,22 @@ class Config(object):
         return os.environ.get(name, default)
 
     @property
+    def influx(self):
+        return self.config_data.get('influx', {})
+
+    @property
+    def influx_token(self):
+        return self.influx.get('token')
+
+    @property
+    def influx_url(self):
+        return self.influx.get('url')
+
+    @property
+    def influx_org(self):
+        return self.influx.get('org')
+
+    @property
     def OANDA(self):
         return self.config_data.get('oanda', {})
 
