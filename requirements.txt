@@ -1,3 +1,4 @@
 v20
 pyyaml
 influxdb
+influxdb-client
