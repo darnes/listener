@@ -1,18 +1,20 @@
 import sys
-import logging
-# doing this here, so config can log as others
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG, format='%(levelname)s:%(name)s:[%(asctime)s]:%(message)s')
+import  logging
+import logging.config
+
+logging.config.fileConfig('./logging.conf')
+
 
 from util.config import config
-from util.oanda_utils import listen_and_report
-
-from util.data_reporter import DataConnection
+# from util.oanda_utils import listen_and_report
+from util.oanda_utils import listen_and_log
 
 log = logging.getLogger(__name__)
 
 def main():
     log.info('starting')
-    listen_and_report()
+    # listen_and_report()
+    listen_and_log()
 
 if __name__ == '__main__':
     main()

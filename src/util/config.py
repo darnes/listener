@@ -17,7 +17,7 @@ class Config(object):
         with open(config_filename, 'r') as config_file:
             config_data = yaml.full_load(config_file)
             # todo: add some masking to the security configs
-            log.debug('config data %s', json.dumps(config_data))
+            log.debug('config data', extra=config_data)
             return config_data
 
     def __init__(self) -> None:

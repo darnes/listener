@@ -42,7 +42,6 @@ class DataReporter(DataConnection):
     def __init__(self, url, token, org):
         super().__init__(url, token, org)
         self._write_api = self._client.write_api(write_options=SYNCHRONOUS)
-        # self._client.api_client.
 
     def report(self, price: ClientPrice):
         json_body = [

@@ -2,11 +2,12 @@ import logging
 import time
 
 import v20
+from v20.pricing import ClientPrice, PricingHeartbeat
 from v20.errors import V20ConnectionError, V20Timeout
 
 from .config import config
 from .data_reporter import get_data_reporter, DataReporter, Symbol
-
+from .metrics import incr_message_counter
 
 log = logging.getLogger(__name__)
 
@@ -25,18 +26,33 @@ def get_rest_api():
     )
     return ctx
 
-def price_to_string(price):
+def price_to_string(price: ClientPrice):
     return "{} ({}) {}/{}".format(
         price.instrument,
         price.time,
         price.bids[0].price,
         price.asks[0].price
     )
+def price_to_dict(price: ClientPrice):
+    # todo: use log formatter instead
+    return {
+        'type': type(price).__name__,
+        'instrument': price.instrument,
+        'time': price.time,
+        'bid': price.bids[0].price,
+        'ask': price.asks[0].price
+    }
 
 def heartbeat_to_string(heartbeat):
     return "HEARTBEAT ({})".format(
         heartbeat.time
     )
+
+def heartbeat_to_dict(heartbeat: PricingHeartbeat):
+    return {
+        'type': heartbeat.type,
+        'time': heartbeat.time
+    }
 
 def unsafe_listen_and_log():
     api = get_stream_api()
@@ -47,11 +63,12 @@ def unsafe_listen_and_log():
     )
     log.info('printing messages as they appear')
     for msg_type, msg in stream.parts():
-        log.info('got message %s', msg_type)
+        log.info('got message', extra={'message_type': msg_type})
+        incr_message_counter()
         if msg_type == "pricing.PricingHeartbeat":
-            log.info(heartbeat_to_string(msg))
+            log.info('pricing.PricingHeartbeat', extra=heartbeat_to_dict(msg))
         elif msg_type == "pricing.ClientPrice":
-            log.info(price_to_string(msg))
+            log.info('pricing.ClientPrice', extra=price_to_dict(msg))
 
 def listen_and_log():
     while True:
@@ -76,9 +93,10 @@ def unsafe_listen_and_report():
     for msg_type, msg in stream.parts():
         log.info('got message %s', msg_type)
         if msg_type == "pricing.PricingHeartbeat":
+            log.info('pricing.PricingHeartbeat', extra=heartbeat_to_dict(msg))
             log.info(heartbeat_to_string(msg))
         elif msg_type == "pricing.ClientPrice":
-            log.info(price_to_string(msg))
+            log.info('pricing.ClientPrice', extra=price_to_dict(msg))
             dr.report(price=msg)
 
 def listen_and_report():
