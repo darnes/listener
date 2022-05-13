@@ -1,10 +1,11 @@
 import sys, os
 import  logging
 import logging.config
+os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
 
 logging.config.fileConfig('./logging.conf')
 
-os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
+
 
 from util.config import config
 # from util.oanda_utils import listen_and_report
