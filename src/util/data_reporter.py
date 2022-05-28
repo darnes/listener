@@ -44,6 +44,10 @@ class DataReporter(DataConnection):
         self._write_api = self._client.write_api(write_options=SYNCHRONOUS)
 
     def report(self, price: ClientPrice):
+        if len(price.bids) == 0 or len(price.asks) == 0:
+            log.info('no-price-data')
+            log.error('unexpected-proce-datapoint', extra=dir(price))
+            return;
         json_body = [
             {
                 "measurement": 'price',
@@ -58,7 +62,6 @@ class DataReporter(DataConnection):
             }
         ]
         self._write_api.write(bucket='tsdata', record=json_body)
-        # self._write_api.flush()
         log.info('data sent')
 
 def get_data_reporter():
