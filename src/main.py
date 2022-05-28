@@ -7,7 +7,7 @@ from types import TracebackType
 os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
 
 logging.config.fileConfig('./logging.conf')
-
+from watchtower import CloudWatchLogHandler
 
 
 from util.config import config
@@ -17,7 +17,7 @@ from util.oanda_utils import listen_and_report
 log = logging.getLogger(__name__)
 
 def handle_exception(exc_type, exc_value, exc_tb):
-    log.critical('uncaughexception', exc_info=(exc_type, exc_value, exc_tb))
+    log.critical('uncaugh-exception', exc_info=(exc_type, exc_value, exc_tb))
 sys.excepthook = handle_exception
 
 
