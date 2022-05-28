@@ -20,11 +20,17 @@ def handle_exception(exc_type, exc_value, exc_tb):
     log.critical('uncaugh-exception', exc_info=(exc_type, exc_value, exc_tb))
 sys.excepthook = handle_exception
 
+"""
+cloudWatch logs insights:
+fields @timestamp, @message, levelname
+| filter levelname = "CRITICAL"
+| sort @timestamp desc
+| limit 20
+
+"""
 
 def main():
     log.info('starting')
-    # next line to fail
-    t = 12 / 0
     listen_and_report()
     # listen_and_log()
 
