@@ -12,7 +12,7 @@ from watchtower import CloudWatchLogHandler
 
 from util.config import config
 from util.oanda_utils import listen_and_report
-# from util.oanda_utils import listen_and_log
+from util.oanda_utils import listen_and_log
 
 log = logging.getLogger(__name__)
 

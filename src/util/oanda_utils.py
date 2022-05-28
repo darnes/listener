@@ -92,6 +92,7 @@ def unsafe_listen_and_report():
     log.info('printing messages as they appear')
     for msg_type, msg in stream.parts():
         log.info('got message %s', msg_type)
+        incr_message_counter()
         if msg_type == "pricing.PricingHeartbeat":
             log.info('pricing.PricingHeartbeat', extra=heartbeat_to_dict(msg))
             log.info(heartbeat_to_string(msg))
